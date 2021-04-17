@@ -4,10 +4,10 @@ play-with-slick [ ![Codeship Status for techmonad/play-slick-app](https://app.co
 -----------------------------------------------------------------------
 Instructions :-
 -----------------------------------------------------------------------
-Clone and run the app(default database is H2):
+Clone and run the app(default database is mysql and for testing default database is H2):
 
      $ git clone git@github.com:Aditya1854/play-with-slick.git
-     $ cd play-slick-app
+     $ cd play-with-slick
      $ sbt run
     
  Run the all unit test:
@@ -15,6 +15,8 @@ Clone and run the app(default database is H2):
      $ sbt test
     
 Run the app using Postgres database:
+
+	first make postgres.conf file and add the configuration for postgres
 
      $ sbt 'run   -Dconfig.file=conf/postgres.conf'
     
@@ -24,7 +26,5 @@ Run the app using Postgres database:
 -----------------------------------------------------------------------
 
 * [Play 2.6.x](http://www.playframework.com)
-* [WebJars](http://www.webjars.org/)
-* [Bootstrap](http://getbootstrap.com/css/)
 * [Slick](http://slick.typesafe.com/)
 
