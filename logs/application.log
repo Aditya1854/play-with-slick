@@ -1,24 +1,14 @@
-[34m[INFO][0;39m - [2021-04-14 19:44:35,862] - [akka.event.slf4j.Slf4jLogger] Slf4jLogger started
-[31m[WARN][0;39m - [2021-04-14 19:44:35,952] - [slick.basic.DatabaseConfig] Use `profile` instead of `driver`. The latter is deprecated since Slick 3.2 and will be removed.
-[34m[INFO][0;39m - [2021-04-14 19:44:36,121] - [play.api.http.EnabledFilters] Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+[34m[INFO][0;39m - [2021-04-15 18:35:01,664] - [akka.event.slf4j.Slf4jLogger] Slf4jLogger started
+[31m[WARN][0;39m - [2021-04-15 18:35:01,840] - [slick.basic.DatabaseConfig] Use `profile` instead of `driver`. The latter is deprecated since Slick 3.2 and will be removed.
+[34m[INFO][0;39m - [2021-04-15 18:35:02,057] - [play.api.http.EnabledFilters] Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
 
-[34m[INFO][0;39m - [2021-04-14 19:44:36,307] - [play.api.Play] Application started (Dev) (no global state)
-[34m[INFO][0;39m - [2021-04-14 19:44:36,863] - [com.zaxxer.hikari.HikariDataSource] db - Starting...
-[34m[INFO][0;39m - [2021-04-14 19:44:36,909] - [com.zaxxer.hikari.HikariDataSource] db - Start completed.
-[34m[INFO][0;39m - [2021-04-14 19:55:44,063] - [com.zaxxer.hikari.HikariDataSource] db - Shutdown initiated...
-[34m[INFO][0;39m - [2021-04-14 19:55:44,090] - [com.zaxxer.hikari.HikariDataSource] db - Shutdown completed.
-[34m[INFO][0;39m - [2021-04-14 19:55:44,553] - [akka.event.slf4j.Slf4jLogger] Slf4jLogger started
-[31m[WARN][0;39m - [2021-04-14 19:55:44,609] - [slick.basic.DatabaseConfig] Use `profile` instead of `driver`. The latter is deprecated since Slick 3.2 and will be removed.
-[34m[INFO][0;39m - [2021-04-14 19:55:44,617] - [play.api.http.EnabledFilters] Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-
-[34m[INFO][0;39m - [2021-04-14 19:55:44,633] - [play.api.Play] Application started (Dev) (no global state)
-[34m[INFO][0;39m - [2021-04-14 19:55:44,672] - [com.zaxxer.hikari.HikariDataSource] db - Starting...
-[34m[INFO][0;39m - [2021-04-14 19:55:44,674] - [com.zaxxer.hikari.HikariDataSource] db - Start completed.
-[34m[INFO][0;39m - [2021-04-14 20:19:52,343] - [play.api.internal.libs.concurrent.CoordinatedShutdownSupport] Starting synchronous coordinated shutdown with ServerStoppedReason reason and 35000 milliseconds timeout
-[34m[INFO][0;39m - [2021-04-14 20:19:52,371] - [play.core.server.AkkaHttpServer] Stopping Akka HTTP server...
-[34m[INFO][0;39m - [2021-04-14 20:19:52,389] - [play.core.server.AkkaHttpServer] Terminating server binding for /0:0:0:0:0:0:0:0:9000
-[34m[INFO][0;39m - [2021-04-14 20:19:52,450] - [com.zaxxer.hikari.HikariDataSource] db - Shutdown initiated...
-[34m[INFO][0;39m - [2021-04-14 20:19:52,562] - [com.zaxxer.hikari.HikariDataSource] db - Shutdown completed.
-[34m[INFO][0;39m - [2021-04-14 20:19:52,597] - [play.core.server.AkkaHttpServer] Running provided shutdown stop hooks
+[34m[INFO][0;39m - [2021-04-15 18:35:02,299] - [play.api.Play] Application started (Dev) (no global state)
+[34m[INFO][0;39m - [2021-04-15 18:35:02,549] - [com.zaxxer.hikari.HikariDataSource] db - Starting...
+[34m[INFO][0;39m - [2021-04-15 18:35:02,607] - [com.zaxxer.hikari.HikariDataSource] db - Start completed.
+[34m[INFO][0;39m - [2021-04-15 18:58:41,792] - [play.api.internal.libs.concurrent.CoordinatedShutdownSupport] Starting synchronous coordinated shutdown with ServerStoppedReason reason and 35000 milliseconds timeout
+[34m[INFO][0;39m - [2021-04-15 18:58:41,808] - [play.core.server.AkkaHttpServer] Stopping Akka HTTP server...
+[34m[INFO][0;39m - [2021-04-15 18:58:41,825] - [play.core.server.AkkaHttpServer] Terminating server binding for /0:0:0:0:0:0:0:0:9000
+[34m[INFO][0;39m - [2021-04-15 18:58:41,850] - [com.zaxxer.hikari.HikariDataSource] db - Shutdown initiated...
+[34m[INFO][0;39m - [2021-04-15 18:58:41,895] - [com.zaxxer.hikari.HikariDataSource] db - Shutdown completed.
+[34m[INFO][0;39m - [2021-04-15 18:58:41,945] - [play.core.server.AkkaHttpServer] Running provided shutdown stop hooks
