@@ -1,23 +1,31 @@
 package utilities
-import pdi.jwt.{ Jwt, JwtAlgorithm, JwtClaim , JwtHeader}
+import models.UserName
+import pdi.jwt.{Jwt, JwtAlgorithm, JwtClaim}
+import play.api.libs.json.Json
+import utils.JsonFormat._
+import java.time.Clock
+import scala.util.{Failure, Success}
+
+
 class JwtUtility {
-  val secretKey = "alwaysBeASecret"
+  private val expiresIn = 1 * 24 * 60 * 60
+  implicit val clock: Clock = Clock.systemUTC
+  val secretKey = "alwaysBeASecret100%secured"
   val JwtSecretAlgo = "HS256"
 
-  def createToken(payload: String): String = {
-    val header = JwtHeader(JwtSecretAlgo)
-    val claim = JwtClaim(payload)
-    Jwt.encode(claim, secretKey, JwtSecretAlgo )
+  def encodeToken(name: UserName): String = {
+    Jwt.encode(JwtClaim(Json.prettyPrint(Json.toJson(name))).issuedNow.expiresIn(expiresIn), secretKey, JwtAlgorithm.HS256)
   }
 
-  def isValidToken(jwtToken: String): Boolean =
-    JsonWebToken.validate(jwtToken, JwtSecretKey)
-
-  def decodePayload(jwtToken: String): Option[String] =
-    jwtToken match {
-      case JsonWebToken(header, claimsSet, signature) => Option(claimsSet.asJsonString)
-      case _ => None
+  def validateToken(jwtToken: String): Either[String, UserName] = {
+    Jwt.decode(jwtToken, secretKey, Seq(JwtAlgorithm.HS256)) match {
+      case Success(value) =>
+        Right(Json.parse(value.content).as[UserName])
+      case Failure(ex) =>
+        Left(ex.getMessage)
     }
+  }
+
 }
 
 object JwtUtility extends JwtUtility

@@ -25,6 +25,6 @@ Run the app using Postgres database:
 ###References :-
 -----------------------------------------------------------------------
 
-* [Play 2.6.x](http://www.playframework.com)
+* [Play 2.8.x](https://www.playframework.com/documentation/2.8.x/Home)
 * [Slick](http://slick.typesafe.com/)
 

@@ -1,15 +1,15 @@
 package controllers
 import com.google.inject.Inject
-import models._
-import play.api.i18n._
-import play.api.libs.json.Json._
-import play.api.libs.json.{JsError, JsObject, JsValue, Json}
+import models.{User,UserData,UserName}
+import play.api.libs.json.{JsError,JsValue, Json}
 import play.api.mvc._
 import repository.UserRepository
-import utils.JsonFormat._
-import scala.concurrent.{ExecutionContext, Future}
+import utils.JsonFormat.{userData,userVal}
 
-class UserController @Inject()(cc: ControllerComponents,userRepository: UserRepository)
+import scala.concurrent.{ExecutionContext, Future}
+import utilities.JwtUtility
+
+class UserController @Inject()(cc: ControllerComponents,auth : JwtUtility,userRepository: UserRepository)
                               (implicit ec: ExecutionContext) extends AbstractController(cc) {
   def create: Action[JsValue] =
     Action.async(parse.json) { request =>
@@ -20,15 +20,18 @@ class UserController @Inject()(cc: ControllerComponents,userRepository: UserRepo
       })
     }
 
-  def getById: Action[JsValue] =
+  def getById: Action[JsValue] = {
     Action.async(parse.json) { request =>
-    println("hello"+ request.body)
-      request.body.validate[UserData].fold(error =>{println(error); Future.successful(BadRequest(JsError.toJson(error)))}, {user =>
-        userRepository.getById(user.email,user.password).map { userName =>
-          val firstName = userName.get.firstName
-          Ok(Json.toJson(firstName)).withHeaders("Access-Control-Allow-Origin" -> "*")
+      request.body.validate[UserData].fold(error => {Future.successful(BadRequest(JsError.toJson(error)))}, { user =>
+        userRepository.getById(user.email, user.password).map {
+          case Some(user) =>
+            Ok(Json.toJson(Map("token" -> auth.encodeToken(UserName(user.firstName))))).withHeaders("Access-Control-Allow-Origin" -> "*")
+          case None =>
+            BadRequest("Email does not exist").withHeaders("Access-Control-Allow-Origin" -> "*")
         }
       })
     }
+  }
+
 
 }

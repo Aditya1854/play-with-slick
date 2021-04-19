@@ -4,7 +4,7 @@ import models.Student
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.JdbcProfile
 
-import java.sql.{Date, Timestamp}
+import java.sql.Date
 import scala.concurrent.Future
 
 @Singleton()
@@ -16,7 +16,7 @@ class StudentInfoRepository @Inject()(protected val dbConfigProvider: DatabaseCo
 
     db.run(studentQuery.to[List].result)}
 
-  def create(student:Student):Future[Int] = {println("creating");db.run(autoIncrementStudentId += student)}
+  def create(student:Student):Future[Int] = {db.run(autoIncrementStudentId += student)}
 
   def update(student:Student):Future[Int] = {db.run(studentQuery.filter(_.id === student.id).update(student))}
 

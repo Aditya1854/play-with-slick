@@ -8,7 +8,7 @@ OPTIONS /*all                                controllers.ApplicationController.p
 #User
 
 POST /user/                                 controllers.UserController.create()
-POST /users/                                  controllers.UserController.getById()
+POST /users/                                controllers.UserController.getById()
 
 # Student
 GET    /student/                            controllers.StudentController.getAll()

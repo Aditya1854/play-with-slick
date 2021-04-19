@@ -9,4 +9,5 @@ case class UniversityCounts( id:Int,name:String,location:String,counts:Int)
 case class StudentWithUniversityName(name:String,email:String,DOB:Date,universityName :String,id:Option[Int]=None)
 case class User(firstName : String,lastName : String, email :String,password:String,time:Option[Timestamp])
 case class UserData(email:String,password:String)
+case class UserName(firstName:String)
 

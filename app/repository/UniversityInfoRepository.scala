@@ -14,7 +14,7 @@ class UniversityInfoRepository @Inject()(protected val dbConfigProvider: Databas
 
   def create(university:University):Future[Int] = {db.run(universityQuery += university)}
 
-  def update(university:University):Future[Int] = { println("updating the reuest2 .......") ;db.run(universityQuery.filter(_.id === university.id).update(university))}
+  def update(university:University):Future[Int] = { db.run(universityQuery.filter(_.id === university.id).update(university))}
 
   def getById(id: Int): Future[Option[University]] = {db.run (universityQuery.filter(_.id === id).result.headOption)}
 
