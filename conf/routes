@@ -13,6 +13,7 @@ POST /users/                                controllers.UserController.getById()
 # Student
 GET    /student/                            controllers.StudentController.getAll()
 GET    /student/university                  controllers.StudentController.getStudentUniversity()
+GET    /student/creator                     controllers.StudentController.getAllByCreator()
 PUT    /student/                            controllers.StudentController.update()
 POST    /student/                           controllers.StudentController.create()
 DELETE  /student/:id                        controllers.StudentController.delete(id:Int)
@@ -21,6 +22,7 @@ GET     /student/:id                        controllers.StudentController.getByI
 # University
 GET     /university/                        controllers.UniversityController.getAll()
 GET     /university/list                        controllers.UniversityController.getList()
+GET     /university/creator                        controllers.UniversityController.getAllByCreator()
 PUT     /university/                        controllers.UniversityController.update()
 POST    /university/                        controllers.UniversityController.create()
 DELETE  /university/:id                     controllers.UniversityController.delete(id:Int)

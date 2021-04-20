@@ -17,7 +17,9 @@ object JsonFormat {
     implicitly[Writes[Long]].contramap(_.getTime)
   }
   implicit val universityFormat :OFormat[University] = Json.format[University]
+  implicit val universityData :OFormat[UniversityData] = Json.format[UniversityData]
   implicit val studentFormat :OFormat[Student] = Json.format[Student]
+  implicit val studentData :OFormat[StudentData] = Json.format[StudentData]
   implicit val universityCounts :OFormat[UniversityCounts] = Json.format[UniversityCounts]
   implicit val studentWithUniversityName :OFormat[StudentWithUniversityName] = Json.format[StudentWithUniversityName]
   implicit val userVal :OFormat[User] = Json.format[User]

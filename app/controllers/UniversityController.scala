@@ -11,6 +11,9 @@ import utilities.SecureUser
 class UniversityController @Inject()(cc: ControllerComponents, security : SecureUser, universityRepository: UniversityInfoRepository)
                                  (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
+  /*  return oll university data with number of students after joining student and university table
+   * */
+
   def getAll: Action[AnyContent] =
     security.async {
       universityRepository.getAllWithCounts().map { res =>
@@ -21,6 +24,22 @@ class UniversityController @Inject()(cc: ControllerComponents, security : Secure
       }
     }
 
+  /*  return return oll university data with number of students after joining student and university table that are created by the requested user
+ * */
+
+  def getAllByCreator: Action[AnyContent] =
+    security.async {request =>
+      universityRepository.getAllWithCreator(request.user.email).map { res =>
+        val result = for(x<-res)
+          yield UniversityCounts(x._1.id,x._1.name,x._1.location,x._2)
+
+        Ok(Json.toJson({result})).withHeaders("Access-Control-Allow-Origin" -> "*")
+      }
+    }
+
+  /*  return oll university data  in a list
+     * */
+
   def getList: Action[AnyContent] =
     security.async {
       universityRepository.getAll().map { res =>
@@ -28,14 +47,22 @@ class UniversityController @Inject()(cc: ControllerComponents, security : Secure
       }
     }
 
+  /*  create a new university
+   * */
+
   def create: Action[JsValue] =
     security.async(parse.json) { request =>
-      request.body.validate[University].fold(error => Future.successful(BadRequest(JsError.toJson(error))), {university =>
+      request.body.validate[UniversityData].fold(error => Future.successful(BadRequest(JsError.toJson(error))), {universityData =>
+        val university = University(universityData.id,universityData.name,universityData.location,request.user.email)
         universityRepository.create(university).map { _ =>
           Ok(Json.toJson(university)).withHeaders("Access-Control-Allow-Origin" -> "*")
         }
       })
     }
+
+  /*  return  university data with given id
+   * */
+
   def getById(universityId :Int) :Action[AnyContent] ={
     security.async{_=>
       universityRepository.getById(universityId).map{
@@ -48,17 +75,25 @@ class UniversityController @Inject()(cc: ControllerComponents, security : Secure
       }
     }
   }
+
+  /*  delete university record
+   * */
+
   def delete(universityId: Int): Action[AnyContent] =
-    security.async { _ =>
-      universityRepository.delete(universityId).map { response =>
+    security.async { request =>
+      universityRepository.delete(universityId,request.user.email).map { response =>
         Ok(Json.toJson(response)).withHeaders("Access-Control-Allow-Origin" -> "*")
       }
     }
 
+  /*  update/edit university data in a row
+   * */
+
   def update: Action[JsValue] = {
     security.async(parse.json) { request =>
-      request.body.validate[University].fold(error => Future.successful(BadRequest(JsError.toJson(error)).withHeaders("Access-Control-Allow-Origin" -> "*")), { university =>
-        universityRepository.update(university).map { _ =>
+      request.body.validate[UniversityData].fold(error => Future.successful(BadRequest(JsError.toJson(error)).withHeaders("Access-Control-Allow-Origin" -> "*")), { universityData =>
+        val university = University(universityData.id,universityData.name,universityData.location,request.user.email)
+        universityRepository.update(university,request.user.email).map { _ =>
           Ok(Json.toJson(university)).withHeaders("Access-Control-Allow-Origin" -> "*")
      }
       })

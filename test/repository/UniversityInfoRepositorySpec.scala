@@ -18,7 +18,7 @@ class UniversityInfoRepositorySpec extends PlaySpec with GuiceOneAppPerTest {
     "get all university list with number of students" in new WithUniversityRepository() {
       val result = await(universityRepo.getAllWithCounts())
       result.length mustBe 1
-      result mustBe Seq((University(1,"hcu","hyderabad"),2))
+      result mustBe Vector((University(1,"hcu","hyderabad","aditya@gmail.com"),2))
     }
 
     "get all university list" in new WithUniversityRepository() {
@@ -31,26 +31,26 @@ class UniversityInfoRepositorySpec extends PlaySpec with GuiceOneAppPerTest {
     "get university by ID" in new WithUniversityRepository() {
       val result = await(universityRepo.getById(1))
       result.isDefined mustBe true
-      result.get mustBe University(1,"hcu","hyderabad")
+      result.get mustBe University(1,"hcu","hyderabad","aditya@gmail.com")
 
 
     }
 
     "create a row" in new WithUniversityRepository() {
-      val university =University(2,"BRABU","bihar")
+      val university =University(2,"BRABU","bihar","aditya@gmail.com")
       val isUniversityCreated = await(universityRepo.create(university))
       isUniversityCreated mustBe 1
     }
 
 
     "update a row" in new WithUniversityRepository() {
-      val university = University(1,"JNTU","hyderabad")
-      val result = await(universityRepo.update(university))
+      val university = University(1,"JNTU","hyderabad","aditya@gmail.com")
+      val result = await(universityRepo.update(university,"aditya@gmail.com"))
       result mustBe 1
     }
 
     "delete a row" in new WithUniversityRepository() {
-      val result = universityRepo.delete(1)
+      val result = universityRepo.delete(1,"aditya@gmail.com")
 	whenReady(result.failed) {
         isUniversityDeleted =>
           intercept[JdbcSQLException] {

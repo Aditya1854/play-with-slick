@@ -11,7 +11,14 @@ import java.sql.Timestamp
 class UserRepository @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends UserInfoTable with HasDatabaseConfigProvider[JdbcProfile] with StudentInfoTable {
 
   import profile.api._
+  /*  create a user
+   * */
+
   def create(user:User):Future[Int] = {db.run(userQuery += user)}
+
+  /*  return user if exists according to given id
+   * */
+
   def getById(email:String,password:String): Future[Option[User]] = {db.run(userQuery.filter(_.email === email).filter(_.password === password).result.headOption)}
 }
 private[repository] trait UserInfoTable {self: HasDatabaseConfigProvider[JdbcProfile] =>

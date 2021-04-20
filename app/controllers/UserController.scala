@@ -11,6 +11,9 @@ import utilities.JwtUtility
 
 class UserController @Inject()(cc: ControllerComponents,auth : JwtUtility,userRepository: UserRepository)
                               (implicit ec: ExecutionContext) extends AbstractController(cc) {
+/* create a user or Signup
+   * */
+
   def create: Action[JsValue] =
     Action.async(parse.json) { request =>
       request.body.validate[User].fold(error => Future.successful(BadRequest(JsError.toJson(error))), {user =>
@@ -20,12 +23,15 @@ class UserController @Inject()(cc: ControllerComponents,auth : JwtUtility,userRe
       })
     }
 
+  /* validate a user or login
+   * */
+
   def getById: Action[JsValue] = {
     Action.async(parse.json) { request =>
       request.body.validate[UserData].fold(error => {Future.successful(BadRequest(JsError.toJson(error)))}, { user =>
         userRepository.getById(user.email, user.password).map {
           case Some(user) =>
-            Ok(Json.toJson(Map("token" -> auth.encodeToken(UserName(user.firstName))))).withHeaders("Access-Control-Allow-Origin" -> "*")
+            Ok(Json.toJson(Map("token" -> auth.encodeToken(UserName(user.firstName,user.email))))).withHeaders("Access-Control-Allow-Origin" -> "*")
           case None =>
             BadRequest("Email does not exist").withHeaders("Access-Control-Allow-Origin" -> "*")
         }
